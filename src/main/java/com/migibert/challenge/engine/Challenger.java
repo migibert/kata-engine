@@ -5,7 +5,6 @@ public class Challenger implements Activable {
     private String name;
     private String baseUrl;
     private boolean active;
-    private int score;
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;

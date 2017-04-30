@@ -2,30 +2,32 @@ package com.migibert.challenge.service;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.migibert.challenge.engine.Score;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Component
 public class ScoreService {
     private List<Score> scores = new ArrayList<>();
 
-    public void register(Iterable<Score> score) {
+    public void register(Collection<Score> scores) {
         this.scores.addAll(scores);
     }
 
-    public Iterable<Score> getChallengeScore(String challengeId) {
-        return Iterables.filter(scores, score -> score.getChallenge().getId().equals(challengeId));
+    public List<Score> getChallengeScore(String challengeId) {
+        return Lists.newArrayList(Iterables.filter(scores, score -> score.getChallenge().getId().equals(challengeId)));
     }
 
-    public Iterable<Score> getChallengerScore(String challengerName) {
-        return Iterables.filter(scores, score -> score.getChallenger().getName().equals(challengerName));
+    public List<Score> getChallengerScore(String challengerName) {
+        return Lists.newArrayList(Iterables.filter(scores, score -> score.getChallenger().getName().equals(challengerName)));
     }
 
-    public Iterable<Score> getChallengerScoreAtChallenge(String challengerName, String challengeId) {
-        return Iterables.filter(scores, score -> score.getChallenger().getName().equals(challengerName) && score.getChallenge().getId().equals(challengeId));
+    public List<Score> getChallengerScoreAtChallenge(String challengerName, String challengeId) {
+        return Lists.newArrayList(Iterables.filter(scores, score -> score.getChallenger().getName().equals(challengerName) && score.getChallenge().getId().equals(challengeId)))    ;
     }
 
     public int getChallengerTotalScore(String challengerName) {
