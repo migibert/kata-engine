@@ -14,6 +14,7 @@ public abstract class AbstractChallenge implements Challenge {
     public String getId() {
         return id;
     }
+
     @Override
     public int getSuccessScore() {
         return successScore;
