@@ -6,6 +6,15 @@ public class Challenger implements Activable {
     private String baseUrl;
     private boolean active;
 
+    public Challenger() {
+    }
+
+    public Challenger(String name, String baseUrl, boolean active) {
+        this.name = name;
+        this.baseUrl = baseUrl;
+        this.active = active;
+    }
+
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
     }

@@ -1,8 +1,10 @@
 package com.migibert.challenge.service;
 
+import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.engine.Challenger;
 import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +14,9 @@ import java.util.stream.Collectors;
 public class ChallengerService {
 
     private List<Challenger> challengers = new ArrayList<>();
+
+    @Inject
+    private EventBus bus;
 
     public void registerChallenger(Challenger challenger) {
         this.challengers.add(challenger);

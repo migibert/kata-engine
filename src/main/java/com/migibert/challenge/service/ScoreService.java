@@ -1,8 +1,10 @@
 package com.migibert.challenge.service;
 
+import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.engine.Score;
 import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,6 +14,9 @@ import java.util.stream.Stream;
 @Component
 public class ScoreService {
     private List<Score> scores = new ArrayList<>();
+
+    @Inject
+    private EventBus bus;
 
     public void register(Collection<Score> scores) {
         this.scores.addAll(scores);

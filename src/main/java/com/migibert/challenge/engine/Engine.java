@@ -1,5 +1,7 @@
 package com.migibert.challenge.engine;
 
+import com.google.common.eventbus.EventBus;
+import com.migibert.challenge.engine.event.*;
 import com.migibert.challenge.service.ChallengeService;
 import com.migibert.challenge.service.ChallengerService;
 import com.migibert.challenge.service.ScoreService;
@@ -18,6 +20,9 @@ public class Engine {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Inject
+    private EventBus bus;
+
+    @Inject
     private ChallengeService challengeService;
 
     @Inject
@@ -28,36 +33,42 @@ public class Engine {
 
     @Scheduled(fixedDelay = 60000)
     public void play() {
-        logger.info("Let's play!!!");
+        game();
+    }
+
+    public void game() {
+        bus.post(new GameStartedEvent());
         Collection<Score> result = new ArrayList<>();
         for(Challenge challenge : challengeService.getActiveChallenges()) {
-            logger.info("Looking for challengers for challenge {}", challenge.getTitle());
+            bus.post(new ChallengeStartedEvent(challenge));
             for (Challenger challenger : challengerService.getActiveChallengers()) {
-                logger.info("Challenger {} turn, executing test suite", challenger.getName());
                 String url = challenger.getBaseUrl() + challenge.getContract().getPath();
                 int success = 0;
                 int failure = 0;
                 for(ChallengeTest test : challenge.getTests()) {
-                    logger.info("Challenger {} tries to validate test {} for challenge {}", challenger.getName(), test.getClass().getSimpleName(), challenge.getTitle());
                     if(test.evaluate(url)) {
-                        logger.info("Challenger {} validated test {} for challenge {}", challenger.getName(), test.getClass().getSimpleName(), challenge.getTitle());
+                        bus.post(new ChallengerTestSuccededEvent(challenger, challenge, test));
                         success++;
                     } else {
-                        logger.info("Challenger {} failed test {} for challenge {}", challenger.getName(), test.getClass().getSimpleName(), challenge.getTitle());
+                        bus.post(new ChallengerTestFailedEvent(challenger, challenge, test));
                         failure++;
                     }
                 }
-                logger.info("Evaluating challenger {} results at challenge {}", challenger.getName(), challenge.getTitle());
+                bus.post(new ChallengerEvaluationStartedEvent(challenger, challenge, success, failure));
+                int score = 0;
                 if(success == 0) {
-                    result.add(new Score(challenge.getFailureScore(), challenge, challenger));
+                    score = challenge.getFailureScore();
                 } else if(failure == 0) {
-                    result.add(new Score(challenge.getSuccessScore(), challenge, challenger));
+                    score = challenge.getSuccessScore();
                 } else {
-                    result.add(new Score(challenge.getPartialSuccessScore(), challenge, challenger));
+                    score = challenge.getPartialSuccessScore();
                 }
+                bus.post(new ChallengerEvaluationEndedEvent(challenger, challenge, score));
+                result.add(new Score(score, challenge, challenger));
             }
         }
         logger.info("Recording results {}", result);
         scoreService.register(result);
+        bus.post(new GameEndedEvent());
     }
 }

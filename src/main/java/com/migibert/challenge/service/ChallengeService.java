@@ -1,9 +1,11 @@
 package com.migibert.challenge.service;
 
+import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.engine.Challenge;
 import com.migibert.challenge.hash.md5.Md5Challenge;
 import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +15,9 @@ import java.util.stream.Collectors;
 public class ChallengeService {
 
     private List<Challenge> challenges = new ArrayList<>();
+
+    @Inject
+    private EventBus bus;
 
     public ChallengeService() {
         loadChallenges();
