@@ -15,17 +15,21 @@ public class Md5BasicChallengeTest implements ChallengeTest {
         String inputData = "Thisisawonderfultest";
         Map<String, String> pathParameterValues = new HashMap<String, String>();
         pathParameterValues.put("value_to_hash", inputData);
-        ResponseEntity<String> response = template.getForEntity(url, String.class, pathParameterValues);
 
-        if(!response.getStatusCode().is2xxSuccessful()) {
+        try {
+            ResponseEntity<String> response = template.getForEntity(url, String.class, pathParameterValues);
+            if(!response.getStatusCode().is2xxSuccessful()) {
+                return false;
+            }
+            if(response.getStatusCode().value() != 200) {
+                return false;
+            }
+            if(!response.getBody().equals("928a0d249855c6a93f693a074cb1a8c5")) {
+                return false;
+            }
+            return true;
+        } catch(Exception e) {
             return false;
         }
-        if(response.getStatusCode().value() != 200) {
-            return false;
-        }
-        if(!response.getBody().equals("928a0d249855c6a93f693a074cb1a8c5")) {
-            return false;
-        }
-        return true;
     }
 }

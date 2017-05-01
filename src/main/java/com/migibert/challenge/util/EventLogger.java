@@ -20,7 +20,7 @@ public class EventLogger {
 
     @Subscribe
     public void subscribe(ChallengeStartedEvent event) {
-        logger.info("Challenge {} ended at {}", event.getChallenge().getTitle(), event.getDate());
+        logger.info("Challenge {} started at {}", event.getChallenge().getTitle(), event.getDate());
     }
 
     @Subscribe
@@ -66,5 +66,20 @@ public class EventLogger {
     @Subscribe
     public void subscribe(ChallengerTestSuccededEvent event) {
         logger.info("Challenger {} succeded test {} for challenge {} at {}", event.getChallenger().getName(), event.getTest().getClass().getSimpleName(), event.getChallenge().getTitle(), event.getDate());
+    }
+
+    @Subscribe
+    public void subscribe(ChallengeLoadedEvent event) {
+        logger.info("Challenge {} has been loaded at {}", event.getChallenge().getTitle(), event.getDate());
+    }
+
+    @Subscribe
+    public void subscribe(ChallengeActivatedEvent event) {
+        logger.info("Challenge {} has been activated at {}", event.getChallenge().getTitle(), event.getDate());
+    }
+
+    @Subscribe
+    public void subscribe(ChallengeDeactivatedEvent event) {
+        logger.info("Challenge {} has been deactivated at {}", event.getChallenge().getTitle(), event.getDate());
     }
 }

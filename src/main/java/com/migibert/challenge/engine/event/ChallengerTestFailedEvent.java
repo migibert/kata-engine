@@ -13,6 +13,7 @@ public class ChallengerTestFailedEvent {
     private ChallengeTest test;
 
     public ChallengerTestFailedEvent(Challenger challenger, Challenge challenge, ChallengeTest test) {
+        this.date = new Date();
         this.challenger = challenger;
         this.challenge = challenge;
         this.test = test;

@@ -46,17 +46,6 @@ public class ChallengeController {
         return ResponseEntity.ok().body(result.get());
     }
 
-    @DeleteMapping(value = "/challenges/{id}")
-    public ResponseEntity<?> deleteChallenge(@PathVariable String id) {
-        if(StringUtils.isEmpty(id)) {
-            return ResponseEntity.badRequest().build();
-        }
-        if(!service.deleteChallenge(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping(value = "/challenges/{id}/activate")
     public ResponseEntity<?> activateChallenge(@PathVariable String id) {
         if(StringUtils.isEmpty(id)) {

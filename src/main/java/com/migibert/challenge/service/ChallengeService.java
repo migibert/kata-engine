@@ -2,6 +2,7 @@ package com.migibert.challenge.service;
 
 import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.engine.Challenge;
+import com.migibert.challenge.engine.event.ChallengeActivatedEvent;
 import com.migibert.challenge.hash.md5.Md5Challenge;
 import org.springframework.stereotype.Component;
 
@@ -39,20 +40,14 @@ public class ChallengeService {
         return challenges.stream().filter(challenge -> challenge.getId().equals(id)).findFirst();
     }
 
-    public boolean deleteChallenge(String id) {
-        Optional<Challenge> challenge = getChallenge(id);
-        if(!challenge.isPresent()) {
-            return false;
-        }
-        return challenges.remove(challenge.get());
-    }
-
     public boolean activate(String id) {
         Optional<Challenge> challenge = getChallenge(id);
         if(!challenge.isPresent()) {
             return false;
         }
-        challenge.get().setActive(true);
+        Challenge result = challenge.get();
+        result.setActive(true);
+        bus.post(new ChallengeActivatedEvent(result));
         return true;
     }
 
@@ -61,7 +56,9 @@ public class ChallengeService {
         if(!challenge.isPresent()) {
             return false;
         }
-        challenge.get().setActive(false);
+        Challenge result = challenge.get();
+        result.setActive(false);
+        bus.post(new ChallengeActivatedEvent(result));
         return true;
     }
 }

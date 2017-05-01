@@ -31,7 +31,7 @@ public class Engine {
     @Inject
     private ScoreService scoreService;
 
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelayString = "${game.loop.delay}")
     public void play() {
         game();
     }
