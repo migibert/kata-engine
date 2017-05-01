@@ -1,14 +1,13 @@
 package com.migibert.challenge.service;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.migibert.challenge.engine.Score;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class ScoreService {
@@ -19,30 +18,35 @@ public class ScoreService {
     }
 
     public List<Score> getChallengeScore(String challengeId) {
-        return Lists.newArrayList(Iterables.filter(scores, score -> score.getChallenge().getId().equals(challengeId)));
+        return scores.parallelStream().filter(score -> score.getChallenge().getId().equals(challengeId)).collect(Collectors.toList());
     }
 
-    public List<Score> getChallengerScore(String challengerName) {
-        return Lists.newArrayList(Iterables.filter(scores, score -> score.getChallenger().getName().equals(challengerName)));
+    public List<Score> getChallengerScores(String challengerName) {
+        return scores.parallelStream().filter(score -> score.getChallenger().getName().equals(challengerName)).collect(Collectors.toList());
     }
 
-    public List<Score> getChallengerScoreAtChallenge(String challengerName, String challengeId) {
-        return Lists.newArrayList(Iterables.filter(scores, score -> score.getChallenger().getName().equals(challengerName) && score.getChallenge().getId().equals(challengeId)))    ;
+    public List<Score> getChallengerScoresAtChallenge(String challengerName, String challengeId) {
+        return getChallengerScoresAtChallengeAsStream(challengerName, challengeId).collect(Collectors.toList());
     }
 
     public int getChallengerTotalScore(String challengerName) {
-        int total = 0;
-        for(Score score : getChallengerScore(challengerName)) {
-            total += score.getScore();
-        }
-        return total;
+        return scores.parallelStream()
+                .filter(score -> score.getChallenger().getName().equals(challengerName))
+                .mapToInt(Score::getScore)
+                .sum();
     }
 
     public int getChallengerTotalScoreAtChallenge(String challengerName, String challengeId) {
-        int total = 0;
-        for(Score score : getChallengerScoreAtChallenge(challengerName, challengeId)) {
-            total += score.getScore();
-        }
-        return total;
+        return scores.parallelStream()
+                .filter(score -> score.getChallenger().getName().equals(challengerName))
+                .filter(score -> score.getChallenge().getId().equals(challengeId))
+                .mapToInt(Score::getScore)
+                .sum();
+    }
+
+    private Stream<Score> getChallengerScoresAtChallengeAsStream(String challengerName, String challengeId) {
+        return scores.parallelStream()
+                .filter(score -> score.getChallenger().getName().equals(challengerName))
+                .filter(score -> score.getChallenge().getId().equals(challengeId));
     }
 }

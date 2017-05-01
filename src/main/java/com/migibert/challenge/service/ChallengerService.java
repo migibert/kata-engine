@@ -1,13 +1,12 @@
 package com.migibert.challenge.service;
 
-import com.google.common.collect.Iterables;
-import com.migibert.challenge.engine.Challenge;
 import com.migibert.challenge.engine.Challenger;
-import com.migibert.challenge.hash.md5.Md5Challenge;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class ChallengerService {
@@ -22,17 +21,20 @@ public class ChallengerService {
         return this.challengers;
     }
 
-    public Challenger getChallenger(String name) {
-        return Iterables.tryFind(challengers, challenger -> challenger.getName().equals(name)).orNull();
+    public Optional<Challenger> getChallenger(String name) {
+        return challengers.stream().filter(challenger -> challenger.getName().equals(name)).findFirst();
     }
 
     public boolean deleteChallenger(String name) {
-        Challenger toDelete = getChallenger(name);
-        return challengers.remove(toDelete);
+        Optional<Challenger> challenger = getChallenger(name);
+        if(!challenger.isPresent()) {
+            return false;
+        }
+        return challengers.remove(challenger.get());
     }
 
     public Iterable<Challenger> getActiveChallengers() {
-        return Iterables.filter(challengers, challenger -> challenger.isActive());
+        return challengers.stream().filter(challenger -> challenger.isActive()).collect(Collectors.toList());
     }
 
 }
