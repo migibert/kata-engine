@@ -2,12 +2,18 @@ package com.migibert.challenge.util;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.migibert.challenge.engine.event.*;
+import com.migibert.challenge.engine.Score;
+import com.migibert.challenge.event.game.*;
+import com.migibert.challenge.event.registry.*;
+import com.migibert.challenge.event.scoring.ChallengerScoringEndedEvent;
+import com.migibert.challenge.event.scoring.ChallengerScoringStartedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class EventLogger {
@@ -19,67 +25,89 @@ public class EventLogger {
     }
 
     @Subscribe
+    public void subscribe(GameStartedEvent event) {
+        List<String> challengersName = event.getChallengers().stream().map(challenger -> challenger.getName()).collect(Collectors.toList());
+        List<String> challengesTitle = event.getChallenges().stream().map(challenge -> challenge.getTitle()).collect(Collectors.toList());
+        logger.info("[{}] [{}] Game started with challenges {} and challengers {}", event.getDate(), event.getGameId(), challengesTitle, challengersName);
+    }
+
+    @Subscribe
     public void subscribe(ChallengeStartedEvent event) {
-        logger.info("Challenge {} started at {}", event.getChallenge().getTitle(), event.getDate());
+        List<String> challengersName = event.getChallengers().stream().map(challenger -> challenger.getName()).collect(Collectors.toList());
+        logger.info("[{}} [{}] - Challenge {} started with challengers {}", event.getDate(), event.getGameId(), event.getChallenge().getTitle(), challengersName);
+    }
+
+    @Subscribe
+    public void subscribe(ChallengerTestSuiteStartedEvent event) {
+        logger.info("[{}] [{}] Challenger {} started challenge {} test suite", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getChallenge().getTitle());
+    }
+
+    @Subscribe
+    public void subscribe(ChallengerTestStartedEvent event) {
+        logger.info("[{}] [{}] Challenger {} started test {}", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
+    }
+
+    @Subscribe
+    public void subscribe(ChallengerTestEndedEvent event) {
+        if(event.getResult().isSuccess()) {
+            logger.info("[{}] [{}] Challenger {} ended test {} with success", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
+        } else {
+            logger.info("[{}] [{}] Challenger {} ended test {} without success", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
+        }
+    }
+
+    @Subscribe
+    public void subscribe(ChallengerTestSuiteEndedEvent event) {
+        if(event.getResult().isPassed()) {
+            logger.info("[{}] [{}] Challenger {} ended challenge {} test suite with success", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getChallenge().getTitle());
+        } else {
+            logger.info("[{}] [{}] Challenger {} ended challenge {} test suite without success", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getChallenge().getTitle());
+        }
     }
 
     @Subscribe
     public void subscribe(ChallengeEndedEvent event) {
-        logger.info("Challenge {} ended at {}", event.getChallenge().getTitle(), event.getDate());
-    }
-
-    @Subscribe
-    public void subscribe(GameStartedEvent event) {
-        logger.info("Game started at {}", event.getDate());
+        logger.info("[{}} [{}] Challenge {} ended", event.getDate(), event.getGameId(), event.getChallenge().getTitle());
     }
 
     @Subscribe
     public void subscribe(GameEndedEvent event) {
-        logger.info("Game ended at {}", event.getDate());
+        logger.info("[{}] [{}] Game ended", event.getDate(), event.getGameId());
     }
 
     @Subscribe
-    public void subscribe(ChallengerRegisteredEvent event) {
-        logger.info("Challenger {} registered at {}", event.getChallenger().getName(), event.getDate());
+    public void subscribe(ChallengerScoringStartedEvent event) {
+        logger.info("[{}] [{}] Scoring started for challenger {} at challenge {} with {} successes on {} tests", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getChallenge().getTitle(), event.getResult().getSuccesses(), event.getResult().getTestNumber());
     }
 
     @Subscribe
-    public void subscribe(ChallengerUnregisteredEvent event) {
-        logger.info("Challenger {} unregistered at {}", event.getChallenger().getName(), event.getDate());
-    }
-
-    @Subscribe
-    public void subscribe(ChallengerEvaluationStartedEvent event) {
-        logger.info("Challenger {} evaluation for challenge {} with {} sucesses and {} failures started at {}", event.getChallenger().getName(), event.getChallenge().getTitle(), event.getSuccesses(), event.getFailures(), event.getDate());
-    }
-
-    @Subscribe
-    public void subscribe(ChallengerEvaluationEndedEvent event) {
-        logger.info("Challenger {} evaluation for challenge {} with score {} ended at {}", event.getChallenger().getName(), event.getChallenge().getTitle(), event.getScore(), event.getDate());
-    }
-
-    @Subscribe
-    public void subscribe(ChallengerTestFailedEvent event) {
-        logger.info("Challenger {} failed test {} for challenge {} at {}", event.getChallenger().getName(), event.getTest().getClass().getSimpleName(), event.getChallenge().getTitle(), event.getDate());
-    }
-
-    @Subscribe
-    public void subscribe(ChallengerTestSuccededEvent event) {
-        logger.info("Challenger {} succeded test {} for challenge {} at {}", event.getChallenger().getName(), event.getTest().getClass().getSimpleName(), event.getChallenge().getTitle(), event.getDate());
-    }
-
-    @Subscribe
-    public void subscribe(ChallengeLoadedEvent event) {
-        logger.info("Challenge {} has been loaded at {}", event.getChallenge().getTitle(), event.getDate());
+    public void subscribe(ChallengerScoringEndedEvent event) {
+        Score score = event.getScore();
+        logger.info("[{}] [{}] Scoring ended for challenger {} at challenge {} with result {}", event.getDate(), event.getGameId(), score.getChallenger().getName(), score.getChallenge().getTitle(), score.getScore());
     }
 
     @Subscribe
     public void subscribe(ChallengeActivatedEvent event) {
-        logger.info("Challenge {} has been activated at {}", event.getChallenge().getTitle(), event.getDate());
+        logger.info("[{}] Challenge {} has been activated", event.getDate(), event.getChallenge().getTitle());
     }
 
     @Subscribe
     public void subscribe(ChallengeDeactivatedEvent event) {
-        logger.info("Challenge {} has been deactivated at {}", event.getChallenge().getTitle(), event.getDate());
+        logger.info("[{}] Challenge {} has been deactivated", event.getDate(), event.getChallenge().getTitle());
+    }
+
+    @Subscribe
+    public void subscribe(ChallengeLoadedEvent event) {
+        logger.info("[{}] Challenge {} has been loaded", event.getDate(), event.getChallenge().getTitle());
+    }
+
+    @Subscribe
+    public void subscribe(ChallengerRegisteredEvent event) {
+        logger.info("[{}] Challenger {} has been registered", event.getDate(), event.getChallenger().getName());
+    }
+
+    @Subscribe
+    public void subscribe(ChallengerUnregisteredEvent event) {
+        logger.info("[{}] Challenger {} has been unregistered", event.getDate(), event.getChallenger().getName());
     }
 }

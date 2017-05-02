@@ -2,9 +2,9 @@ package com.migibert.challenge.service;
 
 import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.engine.Challenge;
-import com.migibert.challenge.engine.event.ChallengeActivatedEvent;
-import com.migibert.challenge.hash.md5.Md5Challenge;
+import com.migibert.challenge.event.registry.ChallengeActivatedEvent;
 import org.springframework.stereotype.Component;
+import ro.fortsoft.pf4j.PluginManager;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -20,12 +20,10 @@ public class ChallengeService {
     @Inject
     private EventBus bus;
 
-    public ChallengeService() {
-        loadChallenges();
-    }
-
-    private void loadChallenges() {
-        this.challenges.add(new Md5Challenge());
+    @Inject
+    public ChallengeService(PluginManager pluginManager) {
+        List<Challenge> extensions = pluginManager.getExtensions(Challenge.class);
+        this.challenges.addAll(extensions);
     }
 
     public List<Challenge> getChallenges() {

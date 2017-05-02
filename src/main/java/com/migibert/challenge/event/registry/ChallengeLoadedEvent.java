@@ -1,20 +1,15 @@
-package com.migibert.challenge.engine.event;
+package com.migibert.challenge.event.registry;
 
 import com.migibert.challenge.engine.Challenge;
+import com.migibert.challenge.event.EngineEvent;
 
 import java.util.Date;
 
-public class ChallengeLoadedEvent {
-    private Date date;
+public class ChallengeLoadedEvent extends EngineEvent {
     private Challenge challenge;
 
     public ChallengeLoadedEvent(Challenge challenge) {
-        this.date = new Date();
         this.challenge = challenge;
-    }
-
-    public Date getDate() {
-        return new Date(date.getTime());
     }
 
     public Challenge getChallenge() {

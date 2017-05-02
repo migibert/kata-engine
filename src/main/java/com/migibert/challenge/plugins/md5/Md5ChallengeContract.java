@@ -1,4 +1,4 @@
-package com.migibert.challenge.hash.md5;
+package com.migibert.challenge.plugins.md5;
 
 import com.migibert.challenge.engine.ChallengeContract;
 import org.springframework.http.HttpMethod;
