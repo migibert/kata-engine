@@ -3,8 +3,6 @@ package com.migibert.challenge.event.registry;
 import com.migibert.challenge.engine.Challenger;
 import com.migibert.challenge.event.EngineEvent;
 
-import java.util.Date;
-
 public class ChallengerRegisteredEvent extends EngineEvent {
     private Challenger challenger;
 

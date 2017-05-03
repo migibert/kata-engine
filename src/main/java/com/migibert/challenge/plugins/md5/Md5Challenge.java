@@ -1,6 +1,5 @@
 package com.migibert.challenge.plugins.md5;
 
-import com.google.common.collect.Lists;
 import com.migibert.challenge.engine.AbstractChallenge;
 import com.migibert.challenge.engine.ChallengeContract;
 import com.migibert.challenge.engine.ChallengeTestSuite;

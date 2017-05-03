@@ -1,10 +1,7 @@
 package com.migibert.challenge.event.game;
 
 import com.migibert.challenge.engine.Challenge;
-import com.migibert.challenge.engine.ChallengeTestSuite;
 import com.migibert.challenge.engine.Challenger;
-
-import java.util.Date;
 
 public class ChallengerTestSuiteStartedEvent extends GameEvent {
     private Challenger challenger;

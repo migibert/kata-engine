@@ -2,8 +2,6 @@ package com.migibert.challenge.event.game;
 
 import com.migibert.challenge.engine.Challenge;
 
-import java.util.Date;
-
 public class ChallengeEndedEvent extends GameEvent {
     private Challenge challenge;
 
