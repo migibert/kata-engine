@@ -2,8 +2,8 @@ package com.migibert.challenge.service;
 
 import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.engine.Challenger;
-import com.migibert.challenge.engine.event.ChallengerRegisteredEvent;
-import com.migibert.challenge.engine.event.ChallengerUnregisteredEvent;
+import com.migibert.challenge.event.registry.ChallengerRegisteredEvent;
+import com.migibert.challenge.event.registry.ChallengerUnregisteredEvent;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -43,7 +43,7 @@ public class ChallengerService {
         return challengers.remove(result);
     }
 
-    public Iterable<Challenger> getActiveChallengers() {
+    public List<Challenger> getActiveChallengers() {
         return challengers.stream().filter(challenger -> challenger.isActive()).collect(Collectors.toList());
     }
 

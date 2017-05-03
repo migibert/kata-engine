@@ -1,12 +1,13 @@
 package com.migibert.challenge.service;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.migibert.challenge.engine.Score;
+import com.migibert.challenge.event.scoring.ChallengerScoringEndedEvent;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,12 +15,16 @@ import java.util.stream.Stream;
 @Component
 public class ScoreService {
     private List<Score> scores = new ArrayList<>();
-
-    @Inject
     private EventBus bus;
 
-    public void register(Collection<Score> scores) {
-        this.scores.addAll(scores);
+    @Inject
+    public ScoreService(EventBus bus) {
+        bus.register(this);
+        this.bus = bus;
+    }
+
+    public void register(Score score) {
+        this.scores.add(score);
     }
 
     public List<Score> getChallengeScore(String challengeId) {
@@ -54,4 +59,11 @@ public class ScoreService {
                 .filter(score -> score.getChallenger().getName().equals(challengerName))
                 .filter(score -> score.getChallenge().getId().equals(challengeId));
     }
+
+    @Subscribe
+    public void onEvaluationEnded(ChallengerScoringEndedEvent event) {
+        register(event.getScore());
+    }
+
 }
+

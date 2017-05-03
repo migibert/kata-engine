@@ -1,11 +1,11 @@
-package com.migibert.challenge.engine.event;
+package com.migibert.challenge.event;
 
 import java.util.Date;
 
-public class GameEndedEvent {
+public class EngineEvent {
     private Date date;
 
-    public GameEndedEvent() {
+    public EngineEvent() {
         this.date = new Date();
     }
 

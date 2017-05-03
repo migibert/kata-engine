@@ -1,10 +1,11 @@
 package com.migibert.challenge.engine;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ro.fortsoft.pf4j.ExtensionPoint;
 
 import java.util.List;
 
-public interface Challenge extends Activable {
+public interface Challenge extends Activable, ExtensionPoint {
     String getId();
     String getTitle();
     String getStatement();
@@ -17,5 +18,5 @@ public interface Challenge extends Activable {
     void setFailureScore(int score);
 
     @JsonIgnore
-    List<ChallengeTest> getTests();
+    ChallengeTestSuite getTestSuite();
 }

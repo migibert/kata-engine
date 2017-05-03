@@ -1,5 +1,6 @@
 package com.migibert.challenge.engine;
 
 public interface ChallengeTest {
-    boolean evaluate(String url);
+    String getName();
+    ChallengeTestResult evaluate(String url);
 }

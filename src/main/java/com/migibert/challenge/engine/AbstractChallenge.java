@@ -3,17 +3,10 @@ package com.migibert.challenge.engine;
 import java.util.UUID;
 
 public abstract class AbstractChallenge implements Challenge {
-
-    private String id = UUID.randomUUID().toString();
     private int successScore;
     private int partialSuccessScore;
     private int failureScore;
     private boolean active;
-
-    @Override
-    public String getId() {
-        return id;
-    }
 
     @Override
     public int getSuccessScore() {
