@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.migibert.challenge.engine.Challenge;
 import com.migibert.challenge.engine.Challenger;
 
-import java.util.Date;
 import java.util.List;
 
 public class ChallengeStartedEvent extends GameEvent{

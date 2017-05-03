@@ -1,7 +1,5 @@
 package com.migibert.challenge.engine;
 
-import java.util.UUID;
-
 public abstract class AbstractChallenge implements Challenge {
     private int successScore;
     private int partialSuccessScore;

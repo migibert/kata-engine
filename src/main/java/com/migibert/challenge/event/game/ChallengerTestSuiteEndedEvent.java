@@ -1,12 +1,8 @@
 package com.migibert.challenge.event.game;
 
 import com.migibert.challenge.engine.Challenge;
-import com.migibert.challenge.engine.ChallengeTestSuite;
 import com.migibert.challenge.engine.ChallengeTestSuiteResult;
 import com.migibert.challenge.engine.Challenger;
-import com.migibert.challenge.event.EngineEvent;
-
-import java.util.Date;
 
 public class ChallengerTestSuiteEndedEvent extends GameEvent {
     private Challenger challenger;

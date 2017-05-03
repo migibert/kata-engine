@@ -34,7 +34,7 @@ public class EventLogger {
     @Subscribe
     public void subscribe(ChallengeStartedEvent event) {
         List<String> challengersName = event.getChallengers().stream().map(challenger -> challenger.getName()).collect(Collectors.toList());
-        logger.info("[{}} [{}] - Challenge {} started with challengers {}", event.getDate(), event.getGameId(), event.getChallenge().getTitle(), challengersName);
+        logger.info("[{}} [{}] Challenge {} started with challengers {}", event.getDate(), event.getGameId(), event.getChallenge().getTitle(), challengersName);
     }
 
     @Subscribe
