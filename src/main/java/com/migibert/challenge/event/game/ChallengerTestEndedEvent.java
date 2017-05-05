@@ -4,6 +4,8 @@ import com.migibert.challenge.engine.ChallengeTest;
 import com.migibert.challenge.engine.ChallengeTestResult;
 import com.migibert.challenge.engine.Challenger;
 
+import java.util.Objects;
+
 public class ChallengerTestEndedEvent extends GameEvent {
 
     private ChallengeTest test;
@@ -27,5 +29,27 @@ public class ChallengerTestEndedEvent extends GameEvent {
 
     public ChallengeTestResult getResult() {
         return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * super.hashCode() + Objects.hash(test, challenger, result);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final ChallengerTestEndedEvent other = (ChallengerTestEndedEvent) obj;
+        return Objects.equals(this.test, other.test)
+                && Objects.equals(this.challenger, other.challenger)
+                && Objects.equals(this.result, other.result);
     }
 }
