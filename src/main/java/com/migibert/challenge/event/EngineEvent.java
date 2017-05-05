@@ -2,23 +2,24 @@ package com.migibert.challenge.event;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
 
-public class EngineEvent {
-    private Date date;
+public class EngineEvent implements Comparable<EngineEvent> {
+    private Instant instant;
 
     public EngineEvent() {
-        this.date = new Date();
+        this.instant = Instant.now();
     }
 
-    public Date getDate() {
-        return new Date(date.getTime());
+    public Instant getInstant() {
+        return instant;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(date);
+        return Objects.hash(instant);
     }
 
     @Override
@@ -30,11 +31,16 @@ public class EngineEvent {
             return false;
         }
         final EngineEvent other = (EngineEvent) obj;
-        return Objects.equals(this.date, other.date);
+        return Objects.equals(this.instant, other.instant);
     }
 
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
+    }
+
+    @Override
+    public int compareTo(EngineEvent engineEvent) {
+        return this.instant.compareTo(engineEvent.instant);
     }
 }
