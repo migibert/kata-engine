@@ -1,6 +1,7 @@
 package com.migibert.challenge.engine;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ChallengeTestSuiteResult {
     private List<ChallengeTestResult> results;
@@ -33,5 +34,23 @@ public class ChallengeTestSuiteResult {
 
     public int getTestNumber() {
         return results.size();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(results, testSuite);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final ChallengeTestSuiteResult other = (ChallengeTestSuiteResult) obj;
+        return Objects.equals(this.results, other.results)
+                && Objects.equals(this.testSuite, other.testSuite);
     }
 }
