@@ -29,17 +29,17 @@ public class Md5BasicChallengeTest implements ChallengeTest {
         String reason = "";
         try {
             ResponseEntity<String> response = template.getForEntity(url, String.class, pathParameterValues);
-            if(!response.getStatusCode().is2xxSuccessful()) {
+            if (!response.getStatusCode().is2xxSuccessful()) {
                 return new ChallengeTestResult(false, "Status code is not 2xx");
             }
-            if(response.getStatusCode().value() != 200) {
+            if (response.getStatusCode().value() != 200) {
                 return new ChallengeTestResult(false, "Status code is not 200");
             }
-            if(!response.getBody().equals("928a0d249855c6a93f693a074cb1a8c5")) {
+            if (!response.getBody().equals("928a0d249855c6a93f693a074cb1a8c5")) {
                 return new ChallengeTestResult(false, "Thisisawonderfultest MD5 hash should be 928a0d249855c6a93f693a074cb1a8c5 but was " + response.getBody());
             }
             return new ChallengeTestResult(true, "");
-        } catch(Exception e) {
+        } catch (Exception e) {
             return new ChallengeTestResult(false, "An exception occurred " + e.getMessage());
         }
     }

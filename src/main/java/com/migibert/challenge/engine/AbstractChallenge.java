@@ -3,40 +3,8 @@ package com.migibert.challenge.engine;
 import java.util.Objects;
 
 public abstract class AbstractChallenge implements Challenge {
-    private int successScore;
-    private int partialSuccessScore;
-    private int failureScore;
+
     private boolean active;
-
-    @Override
-    public int getSuccessScore() {
-        return successScore;
-    }
-
-    @Override
-    public int getPartialSuccessScore() {
-        return partialSuccessScore;
-    }
-
-    @Override
-    public int getFailureScore() {
-        return failureScore;
-    }
-
-    @Override
-    public void setSuccessScore(int score) {
-        this.successScore = score;
-    }
-
-    @Override
-    public void setPartialSuccessScore(int score) {
-        this.partialSuccessScore = score;
-    }
-
-    @Override
-    public void setFailureScore(int score) {
-        this.failureScore = score;
-    }
 
     @Override
     public boolean isActive() {
@@ -50,7 +18,7 @@ public abstract class AbstractChallenge implements Challenge {
 
     @Override
     public int hashCode() {
-        return Objects.hash(successScore, partialSuccessScore, failureScore, active);
+        return Objects.hash(getId(), getTitle(), getStatement(), getContract(), getTestSuite(), isActive());
     }
 
     @Override
@@ -62,9 +30,11 @@ public abstract class AbstractChallenge implements Challenge {
             return false;
         }
         final AbstractChallenge other = (AbstractChallenge) obj;
-        return Objects.equals(this.successScore, other.successScore)
-                && Objects.equals(this.partialSuccessScore, other.partialSuccessScore)
-                && Objects.equals(this.failureScore, other.failureScore)
-                && Objects.equals(this.active, other.active);
+        return Objects.equals(getId(), other.getId())
+                && Objects.equals(getTitle(), other.getTitle())
+                && Objects.equals(getStatement(), other.getStatement())
+                && Objects.equals(getContract(), other.getContract())
+                && Objects.equals(getTestSuite(), other.getTestSuite())
+                && Objects.equals(isActive(), other.isActive());
     }
 }

@@ -3,8 +3,6 @@ package com.migibert.challenge.engine;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.event.game.*;
-import com.migibert.challenge.event.scoring.ChallengerScoringEndedEvent;
-import com.migibert.challenge.event.scoring.ChallengerScoringStartedEvent;
 import com.migibert.challenge.service.ChallengeService;
 import com.migibert.challenge.service.ChallengerService;
 import org.junit.Test;
@@ -18,12 +16,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EngineTest {
@@ -63,10 +57,10 @@ public class EngineTest {
         engine.game(gameId, challenges, challengers);
 
         ArgumentCaptor<Object> eventCaptor = ArgumentCaptor.forClass(Object.class);
-        verify(bus, times(10)).post(eventCaptor.capture());
+        verify(bus, times(8)).post(eventCaptor.capture());
 
         List<Object> calls = eventCaptor.getAllValues();
-        GameStartedEvent gameStartedEvent = (GameStartedEvent)calls.get(0);
+        GameStartedEvent gameStartedEvent = (GameStartedEvent) calls.get(0);
         assertEquals(challenges, gameStartedEvent.getChallenges());
         assertEquals(challengers, gameStartedEvent.getChallengers());
         assertEquals(gameId, gameStartedEvent.getGameId());
@@ -98,21 +92,11 @@ public class EngineTest {
         assertEquals(suiteResult, challengerTestSuiteEndedEvent.getResult());
         assertEquals(gameId, challengerTestSuiteEndedEvent.getGameId());
 
-        ChallengerScoringStartedEvent challengerScoringStartedEvent = (ChallengerScoringStartedEvent) calls.get(6);
-        assertEquals(challenger, challengerScoringStartedEvent.getChallenger());
-        assertEquals(challenge, challengerScoringStartedEvent.getChallenge());
-        assertEquals(suiteResult, challengerScoringStartedEvent.getResult());
-
-        ChallengerScoringEndedEvent challengerScoringEndedEvent = (ChallengerScoringEndedEvent) calls.get(7);
-        assertEquals(challenge, challengerScoringEndedEvent.getScore().getChallenge());
-        assertEquals(challenger, challengerScoringEndedEvent.getScore().getChallenger());
-        assertEquals(0, challengerScoringEndedEvent.getScore().getScore());
-
-        ChallengeEndedEvent challengeEndedEvent = (ChallengeEndedEvent) calls.get(8);
+        ChallengeEndedEvent challengeEndedEvent = (ChallengeEndedEvent) calls.get(6);
         assertEquals(challenge, challengeEndedEvent.getChallenge());
         assertEquals(gameId, challengeEndedEvent.getGameId());
 
-        GameEndedEvent gameEndedEvent = (GameEndedEvent) calls.get(9);
+        GameEndedEvent gameEndedEvent = (GameEndedEvent) calls.get(7);
         assertEquals(gameId, gameEndedEvent.getGameId());
     }
 }

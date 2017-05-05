@@ -40,7 +40,7 @@ public class ChallengeService {
 
     public boolean activate(String id) {
         Optional<Challenge> challenge = getChallenge(id);
-        if(!challenge.isPresent()) {
+        if (!challenge.isPresent()) {
             return false;
         }
         Challenge result = challenge.get();
@@ -51,7 +51,7 @@ public class ChallengeService {
 
     public boolean deactivate(String id) {
         Optional<Challenge> challenge = getChallenge(id);
-        if(!challenge.isPresent()) {
+        if (!challenge.isPresent()) {
             return false;
         }
         Challenge result = challenge.get();
