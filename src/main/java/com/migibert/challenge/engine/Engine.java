@@ -32,13 +32,13 @@ public class Engine {
 
     @Scheduled(fixedDelayString = "${game.loop.delay}")
     public void play() {
-        game();
-    }
-
-    public void game() {
+        String gameId = UUID.randomUUID().toString();
         List<Challenge> activeChallenges = challengeService.getActiveChallenges();
         List<Challenger> activeChallengers = challengerService.getActiveChallengers();
-        String gameId = UUID.randomUUID().toString();
+        game(gameId, activeChallenges, activeChallengers);
+    }
+
+    public void game(String gameId, List<Challenge> activeChallenges, List<Challenger> activeChallengers) {
         bus.post(new GameStartedEvent(gameId, activeChallengers, activeChallenges));
 
         for(Challenge challenge : activeChallenges) {

@@ -5,6 +5,7 @@ import com.migibert.challenge.engine.Challenge;
 import com.migibert.challenge.engine.Challenger;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GameStartedEvent extends GameEvent {
     private ImmutableList<Challenger> challengers;
@@ -23,5 +24,26 @@ public class GameStartedEvent extends GameEvent {
 
     public ImmutableList<Challenger> getChallengers() {
         return challengers;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * super.hashCode() + Objects.hash(challengers, challenges);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        final GameStartedEvent other = (GameStartedEvent) obj;
+        return Objects.equals(this.challengers, other.challengers)
+                && Objects.equals(this.challenges, other.challenges);
     }
 }
