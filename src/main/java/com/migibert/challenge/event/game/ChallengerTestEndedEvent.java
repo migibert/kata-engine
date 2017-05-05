@@ -3,6 +3,7 @@ package com.migibert.challenge.event.game;
 import com.migibert.challenge.engine.ChallengeTest;
 import com.migibert.challenge.engine.ChallengeTestResult;
 import com.migibert.challenge.engine.Challenger;
+import com.migibert.challenge.event.GameEvent;
 
 import java.util.Objects;
 

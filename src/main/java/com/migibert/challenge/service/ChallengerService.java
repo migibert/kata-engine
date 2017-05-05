@@ -35,7 +35,7 @@ public class ChallengerService {
 
     public boolean unregisterChallenger(String name) {
         Optional<Challenger> challenger = getChallenger(name);
-        if(!challenger.isPresent()) {
+        if (!challenger.isPresent()) {
             return false;
         }
         Challenger result = challenger.get();

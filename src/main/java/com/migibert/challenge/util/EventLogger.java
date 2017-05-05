@@ -49,7 +49,7 @@ public class EventLogger {
 
     @Subscribe
     public void subscribe(ChallengerTestEndedEvent event) {
-        if(event.getResult().isSuccess()) {
+        if (event.getResult().isSuccess()) {
             logger.info("[{}] [{}] Challenger {} ended test {} with success", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
         } else {
             logger.info("[{}] [{}] Challenger {} ended test {} without success", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
@@ -58,7 +58,7 @@ public class EventLogger {
 
     @Subscribe
     public void subscribe(ChallengerTestSuiteEndedEvent event) {
-        if(event.getResult().isPassed()) {
+        if (event.getResult().isPassed()) {
             logger.info("[{}] [{}] Challenger {} ended challenge {} test suite with success", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getChallenge().getTitle());
         } else {
             logger.info("[{}] [{}] Challenger {} ended challenge {} test suite without success", event.getDate(), event.getGameId(), event.getChallenger().getName(), event.getChallenge().getTitle());

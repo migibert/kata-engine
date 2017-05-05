@@ -19,11 +19,11 @@ public class HealthCheckChallengeTest implements ChallengeTest {
     public ChallengeTestResult evaluate(String url) {
         try {
             ResponseEntity<String> entity = template.getForEntity(url, String.class);
-            if(entity.getStatusCode().equals(HttpStatus.OK)) {
+            if (entity.getStatusCode().equals(HttpStatus.OK)) {
                 return new ChallengeTestResult(true, "");
             }
             return new ChallengeTestResult(false, "Status code was " + entity.getStatusCode() + ", it should be 200");
-        } catch(Exception e) {
+        } catch (Exception e) {
             return new ChallengeTestResult(false, "An exception occurred " + e.getMessage());
         }
     }
