@@ -5,7 +5,7 @@ import com.migibert.challenge.event.EngineEvent;
 
 import java.util.Objects;
 
-public class ChallengerUnregisteredEvent extends EngineEvent{
+public class ChallengerUnregisteredEvent extends EngineEvent {
     private Challenger challenger;
 
     public ChallengerUnregisteredEvent(Challenger challenger) {

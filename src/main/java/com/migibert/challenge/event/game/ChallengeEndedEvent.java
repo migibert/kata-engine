@@ -1,6 +1,7 @@
 package com.migibert.challenge.event.game;
 
 import com.migibert.challenge.engine.Challenge;
+import com.migibert.challenge.event.GameEvent;
 
 import java.util.Objects;
 

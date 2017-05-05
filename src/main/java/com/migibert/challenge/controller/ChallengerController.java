@@ -40,7 +40,7 @@ public class ChallengerController {
     @GetMapping(value = "/challengers/{name}")
     public ResponseEntity<?> getChallenger(@PathVariable String name) {
         Optional<Challenger> result = service.getChallenger(name);
-        if(!result.isPresent()) {
+        if (!result.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(result);
@@ -48,10 +48,10 @@ public class ChallengerController {
 
     @DeleteMapping(value = "/challengers/{name}")
     public ResponseEntity<?> deleteChallenger(@PathVariable String name) {
-        if(service.getChallenger(name) == null) {
+        if (service.getChallenger(name) == null) {
             return ResponseEntity.notFound().build();
         }
-        if(!service.unregisterChallenger(name)) {
+        if (!service.unregisterChallenger(name)) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
@@ -59,7 +59,7 @@ public class ChallengerController {
 
     @GetMapping(value = "/challengers/{name}/scores")
     public ResponseEntity<?> getScores(@PathVariable String name) {
-        if(!service.getChallenger(name).isPresent()) {
+        if (!service.getChallenger(name).isPresent()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(scoreService.getChallengerTotalScore(name));
@@ -67,7 +67,7 @@ public class ChallengerController {
 
     @GetMapping(value = "/challengers/{name}/scores/{challengeId}")
     public ResponseEntity<?> getScores(@PathVariable String name, @PathVariable String challengeId) {
-        if(!service.getChallenger(name).isPresent()) {
+        if (!service.getChallenger(name).isPresent()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(scoreService.getChallengerScoresAtChallenge(name, challengeId));

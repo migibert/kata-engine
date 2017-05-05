@@ -1,11 +1,9 @@
 package com.migibert.challenge.event;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 import java.util.Objects;
-import java.util.StringJoiner;
 
 public class EngineEvent {
     private Date date;

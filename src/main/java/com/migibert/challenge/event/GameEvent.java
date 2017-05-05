@@ -1,9 +1,6 @@
-package com.migibert.challenge.event.game;
-
-import com.migibert.challenge.event.EngineEvent;
+package com.migibert.challenge.event;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 
 public class GameEvent extends EngineEvent {
     private String gameId;

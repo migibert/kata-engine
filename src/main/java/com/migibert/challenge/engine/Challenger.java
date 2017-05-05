@@ -2,7 +2,7 @@ package com.migibert.challenge.engine;
 
 import java.util.Objects;
 
-public class Challenger implements Activable {
+public class Challenger {
 
     private String name;
     private String baseUrl;
@@ -33,12 +33,10 @@ public class Challenger implements Activable {
         return name;
     }
 
-    @Override
     public boolean isActive() {
         return active;
     }
 
-    @Override
     public void setActive(boolean active) {
         this.active = active;
     }

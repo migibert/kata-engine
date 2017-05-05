@@ -3,6 +3,7 @@ package com.migibert.challenge.event.game;
 import com.google.common.collect.ImmutableList;
 import com.migibert.challenge.engine.Challenge;
 import com.migibert.challenge.engine.Challenger;
+import com.migibert.challenge.event.GameEvent;
 
 import java.util.List;
 import java.util.Objects;
