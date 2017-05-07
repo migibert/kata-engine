@@ -45,9 +45,7 @@ public class ChallengerController {
         if (service.getChallenger(name) == null) {
             return ResponseEntity.notFound().build();
         }
-        if (!service.unregisterChallenger(name)) {
-            return ResponseEntity.notFound().build();
-        }
+        service.unregisterChallenger(name);
         return ResponseEntity.noContent().build();
     }
 }

@@ -108,6 +108,6 @@ public class EventLogger {
 
     @Subscribe
     public void subscribe(ChallengerUnregisteredEvent event) {
-        logger.info("[{}] Challenger {} has been unregistered", event.getInstant(), event.getChallenger().getName());
+        logger.info("[{}] Challenger {} has been unregistered", event.getInstant(), event.getChallengerName());
     }
 }
