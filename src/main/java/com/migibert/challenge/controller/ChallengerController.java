@@ -17,13 +17,7 @@ import java.util.Optional;
 public class ChallengerController {
 
     @Inject
-    private Engine engine;
-
-    @Inject
     private ChallengerService service;
-
-    @Inject
-    private ScoreService scoreService;
 
     @PostMapping(value = "/challengers")
     public ResponseEntity<?> createChallenger(@RequestBody Challenger challenger) {
@@ -55,21 +49,5 @@ public class ChallengerController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(value = "/challengers/{name}/scores")
-    public ResponseEntity<?> getScores(@PathVariable String name) {
-        if (!service.getChallenger(name).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(scoreService.getChallengerTotalScore(name));
-    }
-
-    @GetMapping(value = "/challengers/{name}/scores/{challengeId}")
-    public ResponseEntity<?> getScores(@PathVariable String name, @PathVariable String challengeId) {
-        if (!service.getChallenger(name).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(scoreService.getChallengerScoresAtChallenge(name, challengeId));
     }
 }

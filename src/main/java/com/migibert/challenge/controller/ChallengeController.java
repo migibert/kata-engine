@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.inject.Inject;
+import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class ChallengeController {
-
-    @Inject
-    private Engine engine;
 
     @Inject
     private ChallengeService service;
@@ -44,62 +42,5 @@ public class ChallengeController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(result.get());
-    }
-
-    @PutMapping(value = "/challenges/{id}/activate")
-    public ResponseEntity<?> activateChallenge(@PathVariable String id) {
-        if (StringUtils.isEmpty(id)) {
-            return ResponseEntity.badRequest().build();
-        }
-        if (!service.activate(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping(value = "/challenges/{id}/deactivate")
-    public ResponseEntity<?> deactivateChallenge(@PathVariable String id) {
-        if (StringUtils.isEmpty(id)) {
-            return ResponseEntity.badRequest().build();
-        }
-        if (!service.deactivate(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        ;
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(value = "/challenges/{id}/scores")
-    public ResponseEntity<?> getScores(@PathVariable String id) {
-        if (StringUtils.isEmpty(id)) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(scoreService.getChallengeScore(id));
-    }
-
-    @GetMapping(value = "/challenges/{id}/scores/{challengerName}")
-    public ResponseEntity<?> getChallengerScores(@PathVariable String id, @PathVariable String challengerName) {
-        if (StringUtils.isEmpty(id)) {
-            return ResponseEntity.badRequest().build();
-        }
-        if (StringUtils.isEmpty(id)) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(scoreService.getChallengerTotalScoreAtChallenge(challengerName, id));
-    }
-
-    @GetMapping(value = "/challenges/{id}/scheme")
-    public ResponseEntity<?> getScoreScheme(@PathVariable String id) {
-        if (StringUtils.isEmpty(id)) {
-            return ResponseEntity.badRequest().build();
-        }
-        Optional<Challenge> challenge = service.getChallenge(id);
-        if (!challenge.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Optional<ScoreScheme> scheme = scoreService.getChallengeScoreScheme(challenge.get());
-        ScoreScheme result = scheme.isPresent() ? scheme.get() : scoreService.createDefaultChallengeScoreScheme(challenge.get());
-        return ResponseEntity.ok(result);
     }
 }

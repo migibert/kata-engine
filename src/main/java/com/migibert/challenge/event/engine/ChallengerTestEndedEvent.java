@@ -1,4 +1,4 @@
-package com.migibert.challenge.event.game;
+package com.migibert.challenge.event.engine;
 
 import com.migibert.challenge.engine.ChallengeTest;
 import com.migibert.challenge.engine.ChallengeTestResult;
