@@ -14,8 +14,4 @@ public interface Challenge extends ExtensionPoint {
 
     @JsonIgnore
     ChallengeTestSuite getTestSuite();
-
-    boolean isActive();
-
-    void setActive(boolean active);
 }

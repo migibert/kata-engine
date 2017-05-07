@@ -30,33 +30,7 @@ public class ChallengeService {
         return challenges;
     }
 
-    public List<Challenge> getActiveChallenges() {
-        return challenges.stream().filter(challenge -> challenge.isActive()).collect(Collectors.toList());
-    }
-
     public Optional<Challenge> getChallenge(String id) {
         return challenges.stream().filter(challenge -> challenge.getId().equals(id)).findFirst();
-    }
-
-    public boolean activate(String id) {
-        Optional<Challenge> challenge = getChallenge(id);
-        if (!challenge.isPresent()) {
-            return false;
-        }
-        Challenge result = challenge.get();
-        result.setActive(true);
-        bus.post(new ChallengeActivatedEvent(result));
-        return true;
-    }
-
-    public boolean deactivate(String id) {
-        Optional<Challenge> challenge = getChallenge(id);
-        if (!challenge.isPresent()) {
-            return false;
-        }
-        Challenge result = challenge.get();
-        result.setActive(false);
-        bus.post(new ChallengeActivatedEvent(result));
-        return true;
     }
 }

@@ -3,7 +3,7 @@ package com.migibert.challenge.util;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.migibert.challenge.engine.Score;
-import com.migibert.challenge.event.game.*;
+import com.migibert.challenge.event.engine.*;
 import com.migibert.challenge.event.registry.*;
 import com.migibert.challenge.event.scoring.ChallengerScoringEndedEvent;
 import com.migibert.challenge.event.scoring.ChallengerScoringStartedEvent;
@@ -83,7 +83,7 @@ public class EventLogger {
     @Subscribe
     public void subscribe(ChallengerScoringEndedEvent event) {
         Score score = event.getScore();
-        logger.info("[{}] [{}] Scoring ended for challenger {} at challenge {} with result {}", event.getInstant(), event.getGameId(), score.getChallenger().getName(), score.getChallenge().getTitle(), score.getScore());
+        logger.info("[{}] [{}] Scoring ended for challenger {} at challenge {} with result {}", event.getInstant(), event.getGameId(), score.getChallengerId(), score.getChallengeId(), score.getScore());
     }
 
     @Subscribe

@@ -1,4 +1,4 @@
-package com.migibert.challenge.event.game;
+package com.migibert.challenge.event.engine;
 
 import com.google.common.collect.ImmutableList;
 import com.migibert.challenge.engine.Challenge;
