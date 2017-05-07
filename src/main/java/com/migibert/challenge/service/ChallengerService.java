@@ -38,8 +38,4 @@ public class ChallengerService {
         bus.post(new ChallengerUnregisteredEvent(name));
     }
 
-    public List<Challenger> getActiveChallengers() {
-        return challengers.stream().filter(challenger -> challenger.isActive()).collect(Collectors.toList());
-    }
-
 }

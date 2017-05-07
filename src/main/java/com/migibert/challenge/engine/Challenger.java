@@ -6,15 +6,12 @@ public class Challenger {
 
     private String name;
     private String baseUrl;
-    private boolean active;
 
-    public Challenger() {
-    }
+    public Challenger() {}
 
-    public Challenger(String name, String baseUrl, boolean active) {
+    public Challenger(String name, String baseUrl) {
         this.name = name;
         this.baseUrl = baseUrl;
-        this.active = active;
     }
 
     public void setBaseUrl(String baseUrl) {
@@ -33,17 +30,9 @@ public class Challenger {
         return name;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(name, baseUrl, active);
+        return Objects.hash(name, baseUrl);
     }
 
     @Override
@@ -56,7 +45,6 @@ public class Challenger {
         }
         final Challenger other = (Challenger) obj;
         return Objects.equals(this.name, other.name)
-                && Objects.equals(this.baseUrl, other.baseUrl)
-                && Objects.equals(this.active, other.active);
+                && Objects.equals(this.baseUrl, other.baseUrl);
     }
 }
