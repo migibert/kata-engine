@@ -33,14 +33,9 @@ public class ChallengerService {
         return challengers.stream().filter(challenger -> challenger.getName().equals(name)).findFirst();
     }
 
-    public boolean unregisterChallenger(String name) {
-        Optional<Challenger> challenger = getChallenger(name);
-        if (!challenger.isPresent()) {
-            return false;
-        }
-        Challenger result = challenger.get();
-        bus.post(new ChallengerUnregisteredEvent(result));
-        return challengers.remove(result);
+    public void unregisterChallenger(String name) {
+        this.challengers.removeIf(challenger -> challenger.getName().equals(name));
+        bus.post(new ChallengerUnregisteredEvent(name));
     }
 
     public List<Challenger> getActiveChallengers() {

@@ -7,18 +7,24 @@ import java.util.List;
 import java.util.UUID;
 
 public class Game {
+    private String title;
     private String id = UUID.randomUUID().toString();
     private List<Challenger> challengers = new ArrayList<>();
     private List<Challenge> challenges = new ArrayList<>();
     private ScoreScheme scoreScheme;
     private boolean active;
 
-    public Game(ScoreScheme scoreScheme) {
+    public Game(String title, ScoreScheme scoreScheme) {
+        this.title = title;
         this.scoreScheme = scoreScheme;
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public List<Challenge> getChallenges() {
@@ -51,5 +57,9 @@ public class Game {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public ScoreScheme getScoreScheme() {
+        return scoreScheme;
     }
 }

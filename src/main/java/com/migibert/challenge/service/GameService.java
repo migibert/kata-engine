@@ -19,14 +19,18 @@ public class GameService {
     @Inject
     private Engine engine;
 
-    public Game create() {
-        Game game = new Game(ScoreScheme.defaultScheme());
+    public Game create(Game game) {
         this.games.add(game);
         return game;
     }
 
     public Optional<Game> get(String gameId) {
         return games.stream().filter(game -> game.getId().equals(gameId)).findFirst();
+    }
+
+
+    public void remove(String id) {
+        games.removeIf(game -> game.getId().equals(id));
     }
 
     public List<Game> getGames() {
@@ -75,4 +79,5 @@ public class GameService {
     public void play() {
         games.stream().filter(game -> game.isActive()).forEach(game -> engine.play(game));
     }
+
 }

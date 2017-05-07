@@ -6,19 +6,19 @@ import com.migibert.challenge.event.EngineEvent;
 import java.util.Objects;
 
 public class ChallengerUnregisteredEvent extends EngineEvent {
-    private Challenger challenger;
+    private String challengerName;
 
-    public ChallengerUnregisteredEvent(Challenger challenger) {
-        this.challenger = new Challenger(challenger.getName(), challenger.getBaseUrl(), challenger.isActive());
+    public ChallengerUnregisteredEvent(String challengerName) {
+        this.challengerName = challengerName;
     }
 
-    public Challenger getChallenger() {
-        return new Challenger(challenger.getName(), challenger.getBaseUrl(), challenger.isActive());
+    public String getChallengerName() {
+        return challengerName;
     }
 
     @Override
     public int hashCode() {
-        return 31 * super.hashCode() + Objects.hash(challenger);
+        return 31 * super.hashCode() + Objects.hash(challengerName);
     }
 
     @Override
@@ -33,6 +33,6 @@ public class ChallengerUnregisteredEvent extends EngineEvent {
             return false;
         }
         final ChallengerUnregisteredEvent other = (ChallengerUnregisteredEvent) obj;
-        return Objects.equals(this.challenger, other.challenger);
+        return Objects.equals(this.challengerName, other.challengerName);
     }
 }
