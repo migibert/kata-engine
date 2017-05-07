@@ -9,11 +9,11 @@ public class ChallengerRegisteredEvent extends EngineEvent {
     private Challenger challenger;
 
     public ChallengerRegisteredEvent(Challenger challenger) {
-        this.challenger = new Challenger(challenger.getName(), challenger.getBaseUrl(), challenger.isActive());
+        this.challenger = challenger;
     }
 
     public Challenger getChallenger() {
-        return new Challenger(challenger.getName(), challenger.getBaseUrl(), challenger.isActive());
+        return new Challenger(challenger.getName(), challenger.getBaseUrl());
     }
 
     @Override
