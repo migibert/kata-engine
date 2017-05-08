@@ -7,6 +7,8 @@ public class ScoreScheme {
     private int partialSuccessScore;
     private int failureScore;
 
+    public ScoreScheme() {}
+
     public ScoreScheme(int successScore, int partialSuccessScore, int failureScore) {
         this.successScore = successScore;
         this.partialSuccessScore = partialSuccessScore;
@@ -17,12 +19,24 @@ public class ScoreScheme {
         return failureScore;
     }
 
+    public void setSuccessScore(int successScore) {
+        this.successScore = successScore;
+    }
+
     public int getPartialSuccessScore() {
         return partialSuccessScore;
     }
 
+    public void setPartialSuccessScore(int partialSuccessScore) {
+        this.partialSuccessScore = partialSuccessScore;
+    }
+
     public int getSuccessScore() {
         return successScore;
+    }
+
+    public void setFailureScore(int failureScore) {
+        this.failureScore = failureScore;
     }
 
     public static ScoreScheme defaultScheme() {

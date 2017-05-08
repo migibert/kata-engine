@@ -75,6 +75,24 @@ public class GameService {
         return true;
     }
 
+    public boolean activate(String gameId) {
+        return setActive(gameId, true);
+    }
+
+    public boolean deactivate(String gameId) {
+        return setActive(gameId, false);
+    }
+
+    private boolean setActive(String gameId, boolean active) {
+        Optional<Game> result = get(gameId);
+        if(!result.isPresent()) {
+            return false;
+        }
+        Game game = result.get();
+        game.setActive(active);
+        return true;
+    }
+
     @Scheduled(fixedDelayString = "${game.loop.delay}")
     public void play() {
         games.stream().filter(game -> game.isActive()).forEach(game -> engine.play(game));

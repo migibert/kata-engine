@@ -14,6 +14,8 @@ public class Game {
     private ScoreScheme scoreScheme;
     private boolean active;
 
+    public Game() {}
+
     public Game(String title, ScoreScheme scoreScheme) {
         this.title = title;
         this.scoreScheme = scoreScheme;
@@ -23,16 +25,32 @@ public class Game {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<Challenge> getChallenges() {
         return ImmutableList.copyOf(challenges);
     }
 
+    public void setChallenges(List<Challenge> challenges) {
+        this.challenges = challenges;
+    }
+
     public List<Challenger> getChallengers() {
         return ImmutableList.copyOf(challengers);
+    }
+
+    public void setChallengers(List<Challenger> challengers) {
+        this.challengers = challengers;
     }
 
     public void addChallenge(Challenge challenge) {
@@ -61,5 +79,9 @@ public class Game {
 
     public ScoreScheme getScoreScheme() {
         return scoreScheme;
+    }
+
+    public void setScoreScheme(ScoreScheme scoreScheme) {
+        this.scoreScheme = scoreScheme;
     }
 }

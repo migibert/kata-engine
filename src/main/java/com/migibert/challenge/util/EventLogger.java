@@ -52,7 +52,7 @@ public class EventLogger {
         if (event.getResult().isSuccess()) {
             logger.info("[{}] [{}] Challenger {} ended test {} with success", event.getInstant(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
         } else {
-            logger.info("[{}] [{}] Challenger {} ended test {} without success", event.getInstant(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
+            logger.info("[{}] [{}] Challenger {} ended test {} without success because {}", event.getInstant(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName(), event.getResult().getReason());
         }
     }
 
