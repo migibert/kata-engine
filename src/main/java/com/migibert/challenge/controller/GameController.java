@@ -1,18 +1,23 @@
 package com.migibert.challenge.controller;
 
+import com.migibert.challenge.engine.Challenge;
+import com.migibert.challenge.engine.Challenger;
 import com.migibert.challenge.engine.Game;
+import com.migibert.challenge.service.ChallengeService;
+import com.migibert.challenge.service.ChallengerService;
 import com.migibert.challenge.service.GameService;
 import com.migibert.challenge.service.ScoreService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.ws.rs.Path;
 import java.util.Optional;
 
+@Controller
 public class GameController {
 
     @Inject
@@ -20,6 +25,12 @@ public class GameController {
 
     @Inject
     private GameService gameService;
+
+    @Inject
+    private ChallengeService challengeService;
+
+    @Inject
+    private ChallengerService challengerService;
 
     @GetMapping(value = "/games/{id}/scores")
     public ResponseEntity<?> getScores(@PathVariable String id) {
@@ -42,11 +53,11 @@ public class GameController {
 
     @PostMapping(value = "/games")
     public ResponseEntity<?> createGame(@RequestBody Game game) {
-        return ResponseEntity.ok(this.gameService.create(game));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.gameService.create(game));
     }
 
     @GetMapping(value = "/games/{id}")
-    public ResponseEntity<?> getGame(String id) {
+    public ResponseEntity<?> getGame(@PathVariable  String id) {
         if(StringUtils.isEmpty(id)) {
             return ResponseEntity.badRequest().build();
         }
@@ -57,9 +68,13 @@ public class GameController {
         return ResponseEntity.ok(result.get());
     }
 
+    @GetMapping(value = "/games")
+    public ResponseEntity<?> getGames() {
+        return ResponseEntity.ok(gameService.getGames());
+    }
 
-    @GetMapping(value = "/games/{id}")
-    public ResponseEntity<?> deleteGame(String id) {
+    @DeleteMapping(value = "/games/{id}")
+    public ResponseEntity<?> deleteGame(@PathVariable  String id) {
         if(StringUtils.isEmpty(id)) {
             return ResponseEntity.badRequest().build();
         }
@@ -68,6 +83,64 @@ public class GameController {
             return ResponseEntity.notFound().build();
         }
         this.gameService.remove(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/games/{id}/challenges/{challengeId}")
+    public ResponseEntity<?> addChallengeToGame(@PathVariable String id, @PathVariable String challengeId) {
+        Optional<Game> gameResult = gameService.get(id);
+        if(!gameResult.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Optional<Challenge> challengeResult = challengeService.getChallenge(challengeId);
+        if(!challengeResult.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Game game = gameResult.get();
+        Challenge challenge = challengeResult.get();
+        if(game.getChallenges().contains(challenge)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        game.addChallenge(challenge);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/games/{id}/challengers/{challengerId}")
+    public ResponseEntity<?> addChallengerToGame(@PathVariable String id, @PathVariable String challengerId) {
+        Optional<Game> gameResult = gameService.get(id);
+        if(!gameResult.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Optional<Challenger> challengerResult = challengerService.getChallenger(challengerId);
+        if(!challengerResult.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Game game = gameResult.get();
+        Challenger challenger = challengerResult.get();
+        if(game.getChallengers().contains(challenger)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        game.addChallenger(challenger);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/games/{id}/activate")
+    public ResponseEntity<?> activate(@PathVariable String id) {
+        Optional<Game> gameResult = gameService.get(id);
+        if (!gameResult.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        gameService.activate(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/games/{id}/deactivate")
+    public ResponseEntity<?> deactivate(@PathVariable String id) {
+        Optional<Game> gameResult = gameService.get(id);
+        if (!gameResult.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        gameService.deactivate(id);
         return ResponseEntity.noContent().build();
     }
 }
