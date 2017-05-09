@@ -28,7 +28,6 @@ public class GameService {
         return games.stream().filter(game -> game.getId().equals(gameId)).findFirst();
     }
 
-
     public void remove(String id) {
         games.removeIf(game -> game.getId().equals(id));
     }
