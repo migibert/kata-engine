@@ -1,6 +1,5 @@
 package com.migibert.challenge.event;
 
-import com.migibert.challenge.engine.Engine;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

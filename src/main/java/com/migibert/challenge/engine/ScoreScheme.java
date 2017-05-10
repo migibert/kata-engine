@@ -1,7 +1,5 @@
 package com.migibert.challenge.engine;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class ScoreScheme {
     private int successScore;
     private int partialSuccessScore;

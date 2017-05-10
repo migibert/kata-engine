@@ -1,9 +1,7 @@
 package com.migibert.challenge.controller;
 
 import com.migibert.challenge.engine.Challenger;
-import com.migibert.challenge.engine.Engine;
 import com.migibert.challenge.service.ChallengerService;
-import com.migibert.challenge.service.ScoreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

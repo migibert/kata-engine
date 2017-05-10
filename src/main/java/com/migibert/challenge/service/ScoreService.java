@@ -2,18 +2,14 @@ package com.migibert.challenge.service;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.migibert.challenge.engine.*;
-import com.migibert.challenge.event.engine.ChallengerTestSuiteEndedEvent;
+import com.migibert.challenge.engine.Score;
 import com.migibert.challenge.event.scoring.ChallengerScoringEndedEvent;
-import com.migibert.challenge.event.scoring.ChallengerScoringStartedEvent;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class ScoreService {

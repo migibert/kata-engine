@@ -3,7 +3,6 @@ package com.migibert.challenge.event;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.Objects;
 
 public class EngineEvent implements Comparable<EngineEvent> {

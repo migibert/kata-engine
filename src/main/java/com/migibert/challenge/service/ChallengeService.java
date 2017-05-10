@@ -2,7 +2,6 @@ package com.migibert.challenge.service;
 
 import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.engine.Challenge;
-import com.migibert.challenge.event.registry.ChallengeActivatedEvent;
 import org.springframework.stereotype.Component;
 import ro.fortsoft.pf4j.PluginManager;
 
@@ -10,7 +9,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class ChallengeService {
