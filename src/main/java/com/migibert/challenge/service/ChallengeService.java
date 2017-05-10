@@ -1,6 +1,5 @@
 package com.migibert.challenge.service;
 
-import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.engine.Challenge;
 import org.springframework.stereotype.Component;
 import ro.fortsoft.pf4j.PluginManager;
@@ -14,9 +13,6 @@ import java.util.Optional;
 public class ChallengeService {
 
     private List<Challenge> challenges = new ArrayList<>();
-
-    @Inject
-    private EventBus bus;
 
     @Inject
     public ChallengeService(PluginManager pluginManager) {
