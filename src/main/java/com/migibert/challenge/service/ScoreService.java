@@ -28,11 +28,10 @@ public class ScoreService {
                 .collect(Collectors.toList());
     }
 
-
     public List<Score> getChallengerScoreAtGame(String challengerName, String gameId) {
         return scores.stream()
                 .filter(score -> score.getGameId().equals(gameId))
-                .filter(score -> score.getChallengeId().equals(challengerName))
+                .filter(score -> score.getChallengerId().equals(challengerName))
                 .collect(Collectors.toList());
     }
 
