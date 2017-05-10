@@ -1,7 +1,10 @@
 package com.migibert.challenge.service;
 
 import com.google.common.collect.ImmutableList;
-import com.migibert.challenge.engine.*;
+import com.migibert.challenge.engine.Challenge;
+import com.migibert.challenge.engine.Challenger;
+import com.migibert.challenge.engine.Engine;
+import com.migibert.challenge.engine.Game;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +12,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component

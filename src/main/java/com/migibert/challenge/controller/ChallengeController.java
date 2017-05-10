@@ -1,8 +1,6 @@
 package com.migibert.challenge.controller;
 
 import com.migibert.challenge.engine.Challenge;
-import com.migibert.challenge.engine.Engine;
-import com.migibert.challenge.engine.ScoreScheme;
 import com.migibert.challenge.service.ChallengeService;
 import com.migibert.challenge.service.ScoreService;
 import org.apache.commons.lang3.StringUtils;
@@ -10,10 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.inject.Inject;
-import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Optional;
 

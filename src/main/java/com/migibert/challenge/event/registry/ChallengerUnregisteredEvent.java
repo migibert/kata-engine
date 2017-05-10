@@ -1,6 +1,5 @@
 package com.migibert.challenge.event.registry;
 
-import com.migibert.challenge.engine.Challenger;
 import com.migibert.challenge.event.EngineEvent;
 
 import java.util.Objects;

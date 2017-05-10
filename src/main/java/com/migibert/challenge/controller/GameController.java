@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.ws.rs.Path;
 import java.util.Optional;
 
 @Controller

@@ -2,17 +2,13 @@ package com.migibert.challenge.engine;
 
 import com.google.common.eventbus.EventBus;
 import com.migibert.challenge.event.engine.*;
-import com.migibert.challenge.service.ChallengeService;
-import com.migibert.challenge.service.ChallengerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class Engine {
