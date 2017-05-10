@@ -1,38 +1,24 @@
 package com.migibert.challenge.engine;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class ScoreScheme {
-    @JsonIgnore
-    private Challenge challenge;
     private int successScore;
     private int partialSuccessScore;
     private int failureScore;
 
-    public ScoreScheme() {
-    }
+    public ScoreScheme() {}
 
-    public ScoreScheme(Challenge challenge, int successScore, int partialSuccessScore, int failureScore) {
-        this.challenge = challenge;
+    public ScoreScheme(int successScore, int partialSuccessScore, int failureScore) {
         this.successScore = successScore;
         this.partialSuccessScore = partialSuccessScore;
         this.failureScore = failureScore;
-    }
-
-    public Challenge getChallenge() {
-        return challenge;
-    }
-
-    public void setChallenge(Challenge challenge) {
-        this.challenge = challenge;
     }
 
     public int getFailureScore() {
         return failureScore;
     }
 
-    public void setFailureScore(int failureScore) {
-        this.failureScore = failureScore;
+    public void setSuccessScore(int successScore) {
+        this.successScore = successScore;
     }
 
     public int getPartialSuccessScore() {
@@ -47,7 +33,11 @@ public class ScoreScheme {
         return successScore;
     }
 
-    public void setSuccessScore(int successScore) {
-        this.successScore = successScore;
+    public void setFailureScore(int failureScore) {
+        this.failureScore = failureScore;
+    }
+
+    public static ScoreScheme defaultScheme() {
+        return new ScoreScheme(2, 1, 0);
     }
 }

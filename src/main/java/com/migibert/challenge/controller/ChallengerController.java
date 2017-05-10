@@ -1,9 +1,7 @@
 package com.migibert.challenge.controller;
 
 import com.migibert.challenge.engine.Challenger;
-import com.migibert.challenge.engine.Engine;
 import com.migibert.challenge.service.ChallengerService;
-import com.migibert.challenge.service.ScoreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,13 +15,7 @@ import java.util.Optional;
 public class ChallengerController {
 
     @Inject
-    private Engine engine;
-
-    @Inject
     private ChallengerService service;
-
-    @Inject
-    private ScoreService scoreService;
 
     @PostMapping(value = "/challengers")
     public ResponseEntity<?> createChallenger(@RequestBody Challenger challenger) {
@@ -51,25 +43,7 @@ public class ChallengerController {
         if (service.getChallenger(name) == null) {
             return ResponseEntity.notFound().build();
         }
-        if (!service.unregisterChallenger(name)) {
-            return ResponseEntity.notFound().build();
-        }
+        service.unregisterChallenger(name);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(value = "/challengers/{name}/scores")
-    public ResponseEntity<?> getScores(@PathVariable String name) {
-        if (!service.getChallenger(name).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(scoreService.getChallengerTotalScore(name));
-    }
-
-    @GetMapping(value = "/challengers/{name}/scores/{challengeId}")
-    public ResponseEntity<?> getScores(@PathVariable String name, @PathVariable String challengeId) {
-        if (!service.getChallenger(name).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(scoreService.getChallengerScoresAtChallenge(name, challengeId));
     }
 }

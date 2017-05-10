@@ -3,7 +3,7 @@ package com.migibert.challenge.util;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.migibert.challenge.engine.Score;
-import com.migibert.challenge.event.game.*;
+import com.migibert.challenge.event.engine.*;
 import com.migibert.challenge.event.registry.*;
 import com.migibert.challenge.event.scoring.ChallengerScoringEndedEvent;
 import com.migibert.challenge.event.scoring.ChallengerScoringStartedEvent;
@@ -52,7 +52,7 @@ public class EventLogger {
         if (event.getResult().isSuccess()) {
             logger.info("[{}] [{}] Challenger {} ended test {} with success", event.getInstant(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
         } else {
-            logger.info("[{}] [{}] Challenger {} ended test {} without success", event.getInstant(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName());
+            logger.info("[{}] [{}] Challenger {} ended test {} without success because {}", event.getInstant(), event.getGameId(), event.getChallenger().getName(), event.getTest().getName(), event.getResult().getReason());
         }
     }
 
@@ -83,7 +83,7 @@ public class EventLogger {
     @Subscribe
     public void subscribe(ChallengerScoringEndedEvent event) {
         Score score = event.getScore();
-        logger.info("[{}] [{}] Scoring ended for challenger {} at challenge {} with result {}", event.getInstant(), event.getGameId(), score.getChallenger().getName(), score.getChallenge().getTitle(), score.getScore());
+        logger.info("[{}] [{}] Scoring ended for challenger {} at challenge {} with result {}", event.getInstant(), event.getGameId(), score.getChallengerId(), score.getChallengeId(), score.getScore());
     }
 
     @Subscribe
@@ -108,6 +108,6 @@ public class EventLogger {
 
     @Subscribe
     public void subscribe(ChallengerUnregisteredEvent event) {
-        logger.info("[{}] Challenger {} has been unregistered", event.getInstant(), event.getChallenger().getName());
+        logger.info("[{}] Challenger {} has been unregistered", event.getInstant(), event.getChallengerName());
     }
 }

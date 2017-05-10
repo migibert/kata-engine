@@ -3,31 +3,37 @@ package com.migibert.challenge.engine;
 import java.util.Objects;
 
 public class Score {
-    private Challenge challenge;
-    private Challenger challenger;
+    private String gameId;
+    private String challengeId;
+    private String challengerId;
     private int score;
 
-    public Score(int score, Challenge challenge, Challenger challenger) {
+    public Score(String gameId, int score, String challengeId, String challengerId) {
+        this.gameId = gameId;
         this.score = score;
-        this.challenge = challenge;
-        this.challenger = challenger;
+        this.challengeId = challengeId;
+        this.challengerId = challengerId;
+    }
+
+    public String getGameId() {
+        return gameId;
     }
 
     public int getScore() {
         return score;
     }
 
-    public Challenge getChallenge() {
-        return challenge;
+    public String getChallengeId() {
+        return challengeId;
     }
 
-    public Challenger getChallenger() {
-        return challenger;
+    public String getChallengerId() {
+        return challengerId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(challenge, challenger, score);
+        return Objects.hash(gameId, challengeId, challengerId, score);
     }
 
     @Override
@@ -39,8 +45,9 @@ public class Score {
             return false;
         }
         final Score other = (Score) obj;
-        return Objects.equals(this.challenge, other.challenge)
-                && Objects.equals(this.challenger, other.challenger)
-                && Objects.equals(this.score, other.score);
+        return Objects.equals(this.challengeId, other.challengeId)
+                && Objects.equals(this.challengerId, other.challengerId)
+                && Objects.equals(this.score, other.score)
+                && Objects.equals(this.gameId, other.gameId);
     }
 }

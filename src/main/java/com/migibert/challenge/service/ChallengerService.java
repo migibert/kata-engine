@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class ChallengerService {
@@ -33,18 +32,9 @@ public class ChallengerService {
         return challengers.stream().filter(challenger -> challenger.getName().equals(name)).findFirst();
     }
 
-    public boolean unregisterChallenger(String name) {
-        Optional<Challenger> challenger = getChallenger(name);
-        if (!challenger.isPresent()) {
-            return false;
-        }
-        Challenger result = challenger.get();
-        bus.post(new ChallengerUnregisteredEvent(result));
-        return challengers.remove(result);
-    }
-
-    public List<Challenger> getActiveChallengers() {
-        return challengers.stream().filter(challenger -> challenger.isActive()).collect(Collectors.toList());
+    public void unregisterChallenger(String name) {
+        this.challengers.removeIf(challenger -> challenger.getName().equals(name));
+        bus.post(new ChallengerUnregisteredEvent(name));
     }
 
 }

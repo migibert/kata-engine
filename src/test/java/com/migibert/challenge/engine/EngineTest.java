@@ -2,7 +2,7 @@ package com.migibert.challenge.engine;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
-import com.migibert.challenge.event.game.*;
+import com.migibert.challenge.event.engine.*;
 import com.migibert.challenge.service.ChallengeService;
 import com.migibert.challenge.service.ChallengerService;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class EngineTest {
     private Engine engine;
 
     @Test
-    public void testGameNotifications() {
+    public void given_challengers_and_challenges_game_should_send_notifications() {
         String gameId = "abc";
         Challenger challenger = mock(Challenger.class);
         Challenge challenge = mock(Challenge.class);

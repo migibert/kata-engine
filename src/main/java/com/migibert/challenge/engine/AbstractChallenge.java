@@ -4,21 +4,9 @@ import java.util.Objects;
 
 public abstract class AbstractChallenge implements Challenge {
 
-    private boolean active;
-
-    @Override
-    public boolean isActive() {
-        return active;
-    }
-
-    @Override
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getStatement(), getContract(), getTestSuite(), isActive());
+        return Objects.hash(getId(), getTitle(), getStatement(), getContract(), getTestSuite());
     }
 
     @Override
@@ -34,7 +22,6 @@ public abstract class AbstractChallenge implements Challenge {
                 && Objects.equals(getTitle(), other.getTitle())
                 && Objects.equals(getStatement(), other.getStatement())
                 && Objects.equals(getContract(), other.getContract())
-                && Objects.equals(getTestSuite(), other.getTestSuite())
-                && Objects.equals(isActive(), other.isActive());
+                && Objects.equals(getTestSuite(), other.getTestSuite());
     }
 }
