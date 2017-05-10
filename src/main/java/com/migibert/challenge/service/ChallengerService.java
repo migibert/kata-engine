@@ -19,9 +19,16 @@ public class ChallengerService {
     @Inject
     private EventBus bus;
 
-    public void registerChallenger(Challenger challenger) {
-        bus.post(new ChallengerRegisteredEvent(challenger));
+    public boolean registerChallenger(Challenger challenger) {
+        if(challengers.contains(challenger)) {
+            return false;
+        }
+        if(challengers.stream().filter(c -> c.getName().equals(challenger.getName()) || c.getBaseUrl().equals(challenger.getBaseUrl())).count() != 0) {
+            return false;
+        }
         this.challengers.add(challenger);
+        bus.post(new ChallengerRegisteredEvent(challenger));
+        return true;
     }
 
     public List<Challenger> listChallengers() {
@@ -32,9 +39,12 @@ public class ChallengerService {
         return challengers.stream().filter(challenger -> challenger.getName().equals(name)).findFirst();
     }
 
-    public void unregisterChallenger(String name) {
-        this.challengers.removeIf(challenger -> challenger.getName().equals(name));
-        bus.post(new ChallengerUnregisteredEvent(name));
+    public boolean unregisterChallenger(String name) {
+        boolean removed = this.challengers.removeIf(challenger -> challenger.getName().equals(name));
+        if(removed) {
+            bus.post(new ChallengerUnregisteredEvent(name));
+        }
+        return removed;
     }
 
 }
