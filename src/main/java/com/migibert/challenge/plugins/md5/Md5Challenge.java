@@ -1,9 +1,12 @@
 package com.migibert.challenge.plugins.md5;
 
+import com.google.common.collect.Lists;
 import com.migibert.challenge.engine.AbstractChallenge;
 import com.migibert.challenge.engine.ChallengeContract;
 import com.migibert.challenge.engine.ChallengeTestSuite;
 import ro.fortsoft.pf4j.Extension;
+
+import java.util.List;
 
 @Extension
 public class Md5Challenge extends AbstractChallenge {
@@ -25,8 +28,8 @@ public class Md5Challenge extends AbstractChallenge {
     }
 
     @Override
-    public ChallengeContract getContract() {
-        return contract;
+    public List<ChallengeContract> getContracts() {
+        return Lists.newArrayList(contract);
     }
 
     @Override

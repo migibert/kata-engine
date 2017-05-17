@@ -6,7 +6,7 @@ public abstract class AbstractChallenge implements Challenge {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getStatement(), getContract(), getTestSuite());
+        return Objects.hash(getId(), getTitle(), getStatement(), getContracts(), getTestSuite());
     }
 
     @Override
@@ -21,7 +21,7 @@ public abstract class AbstractChallenge implements Challenge {
         return Objects.equals(getId(), other.getId())
                 && Objects.equals(getTitle(), other.getTitle())
                 && Objects.equals(getStatement(), other.getStatement())
-                && Objects.equals(getContract(), other.getContract())
+                && Objects.equals(getContracts(), other.getContracts())
                 && Objects.equals(getTestSuite(), other.getTestSuite());
     }
 }

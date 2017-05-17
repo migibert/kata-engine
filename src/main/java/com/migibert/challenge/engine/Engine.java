@@ -38,12 +38,11 @@ public class Engine {
 
     public ChallengeTestSuiteResult evaluate(String gameId, Challenger challenger, Challenge challenge) {
         bus.post(new ChallengerTestSuiteStartedEvent(gameId, challenge, challenger));
-        String url = challenger.getBaseUrl() + challenge.getContract().getPath();
         List<ChallengeTestResult> results = new ArrayList<>();
         ChallengeTestSuite testSuite = challenge.getTestSuite();
         for (ChallengeTest test : testSuite.getTests()) {
             bus.post(new ChallengerTestStartedEvent(gameId, test, challenger));
-            ChallengeTestResult result = test.evaluate(url);
+            ChallengeTestResult result = test.evaluate(challenger.getBaseUrl());
             results.add(result);
             bus.post(new ChallengerTestEndedEvent(gameId, test, challenger, result));
         }
