@@ -58,7 +58,7 @@ public class GameService {
 
     public boolean addChallengeToGame(String gameId, Challenge challenge) {
         Optional<Game> result = get(gameId);
-        if(!result.isPresent()) {
+        if (!result.isPresent()) {
             return false;
         }
         Game game = result.get();
@@ -68,7 +68,7 @@ public class GameService {
 
     public boolean addChallengerToGame(String gameId, Challenger challenger) {
         Optional<Game> result = get(gameId);
-        if(!result.isPresent()) {
+        if (!result.isPresent()) {
             return false;
         }
         Game game = result.get();
@@ -86,7 +86,7 @@ public class GameService {
 
     private boolean setActive(String gameId, boolean active) {
         Optional<Game> result = get(gameId);
-        if(!result.isPresent()) {
+        if (!result.isPresent()) {
             return false;
         }
         Game game = result.get();

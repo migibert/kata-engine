@@ -14,7 +14,8 @@ public class Game {
     private ScoreScheme scoreScheme;
     private boolean active;
 
-    public Game() {}
+    public Game() {
+    }
 
     public Game(String title, ScoreScheme scoreScheme) {
         this.title = title;

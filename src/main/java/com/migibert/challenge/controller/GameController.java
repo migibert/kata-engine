@@ -56,12 +56,12 @@ public class GameController {
     }
 
     @GetMapping(value = "/games/{id}")
-    public ResponseEntity<?> getGame(@PathVariable  String id) {
-        if(StringUtils.isEmpty(id)) {
+    public ResponseEntity<?> getGame(@PathVariable String id) {
+        if (StringUtils.isEmpty(id)) {
             return ResponseEntity.badRequest().build();
         }
         Optional<Game> result = this.gameService.get(id);
-        if(!result.isPresent()) {
+        if (!result.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result.get());
@@ -73,12 +73,12 @@ public class GameController {
     }
 
     @DeleteMapping(value = "/games/{id}")
-    public ResponseEntity<?> deleteGame(@PathVariable  String id) {
-        if(StringUtils.isEmpty(id)) {
+    public ResponseEntity<?> deleteGame(@PathVariable String id) {
+        if (StringUtils.isEmpty(id)) {
             return ResponseEntity.badRequest().build();
         }
         Optional<Game> result = this.gameService.get(id);
-        if(!result.isPresent()) {
+        if (!result.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         this.gameService.remove(id);
@@ -88,16 +88,16 @@ public class GameController {
     @PutMapping(value = "/games/{id}/challenges/{challengeId}")
     public ResponseEntity<?> addChallengeToGame(@PathVariable String id, @PathVariable String challengeId) {
         Optional<Game> gameResult = gameService.get(id);
-        if(!gameResult.isPresent()) {
+        if (!gameResult.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         Optional<Challenge> challengeResult = challengeService.getChallenge(challengeId);
-        if(!challengeResult.isPresent()) {
+        if (!challengeResult.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         Game game = gameResult.get();
         Challenge challenge = challengeResult.get();
-        if(game.getChallenges().contains(challenge)) {
+        if (game.getChallenges().contains(challenge)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         game.addChallenge(challenge);
@@ -107,16 +107,16 @@ public class GameController {
     @PutMapping(value = "/games/{id}/challengers/{challengerId}")
     public ResponseEntity<?> addChallengerToGame(@PathVariable String id, @PathVariable String challengerId) {
         Optional<Game> gameResult = gameService.get(id);
-        if(!gameResult.isPresent()) {
+        if (!gameResult.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         Optional<Challenger> challengerResult = challengerService.getChallenger(challengerId);
-        if(!challengerResult.isPresent()) {
+        if (!challengerResult.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         Game game = gameResult.get();
         Challenger challenger = challengerResult.get();
-        if(game.getChallengers().contains(challenger)) {
+        if (game.getChallengers().contains(challenger)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         game.addChallenger(challenger);

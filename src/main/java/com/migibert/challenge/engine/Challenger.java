@@ -7,7 +7,8 @@ public class Challenger {
     private String name;
     private String baseUrl;
 
-    public Challenger() {}
+    public Challenger() {
+    }
 
     public Challenger(String name, String baseUrl) {
         this.name = name;

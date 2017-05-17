@@ -17,7 +17,7 @@ public class HealthCheckChallengeTest implements ChallengeTest {
 
     @Override
     public ChallengeTestResult evaluate(String baseUrl) {
-            try {
+        try {
             ResponseEntity<String> entity = template.getForEntity(baseUrl + "/alive", String.class);
             if (entity.getStatusCode().equals(HttpStatus.OK)) {
                 return new ChallengeTestResult(true, "");

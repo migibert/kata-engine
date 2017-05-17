@@ -20,10 +20,10 @@ public class ChallengerService {
     private EventBus bus;
 
     public boolean registerChallenger(Challenger challenger) {
-        if(challengers.contains(challenger)) {
+        if (challengers.contains(challenger)) {
             return false;
         }
-        if(challengers.stream().filter(c -> c.getName().equals(challenger.getName()) || c.getBaseUrl().equals(challenger.getBaseUrl())).count() != 0) {
+        if (challengers.stream().filter(c -> c.getName().equals(challenger.getName()) || c.getBaseUrl().equals(challenger.getBaseUrl())).count() != 0) {
             return false;
         }
         this.challengers.add(challenger);
@@ -41,7 +41,7 @@ public class ChallengerService {
 
     public boolean unregisterChallenger(String name) {
         boolean removed = this.challengers.removeIf(challenger -> challenger.getName().equals(name));
-        if(removed) {
+        if (removed) {
             bus.post(new ChallengerUnregisteredEvent(name));
         }
         return removed;
