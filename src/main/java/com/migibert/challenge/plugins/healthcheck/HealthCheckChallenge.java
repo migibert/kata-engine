@@ -1,9 +1,12 @@
 package com.migibert.challenge.plugins.healthcheck;
 
+import com.google.common.collect.Lists;
 import com.migibert.challenge.engine.AbstractChallenge;
 import com.migibert.challenge.engine.ChallengeContract;
 import com.migibert.challenge.engine.ChallengeTestSuite;
 import ro.fortsoft.pf4j.Extension;
+
+import java.util.List;
 
 @Extension
 public class HealthCheckChallenge extends AbstractChallenge {
@@ -24,8 +27,8 @@ public class HealthCheckChallenge extends AbstractChallenge {
     }
 
     @Override
-    public ChallengeContract getContract() {
-        return new HealthCheckChallengeContract();
+    public List<ChallengeContract> getContracts() {
+        return Lists.newArrayList(new HealthCheckChallengeContract());
     }
 
     @Override

@@ -23,7 +23,7 @@ public class GameServiceTest {
     @Mock
     private Engine engine;
 
-    private ScoreScheme scheme = new ScoreScheme(2,1,0);
+    private ScoreScheme scheme = new ScoreScheme(2, 1, 0);
 
     @InjectMocks
     private GameService service;

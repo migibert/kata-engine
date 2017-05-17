@@ -20,7 +20,7 @@ public class Md5BasicChallengeTest implements ChallengeTest {
     }
 
     @Override
-    public ChallengeTestResult evaluate(String url) {
+    public ChallengeTestResult evaluate(String baseUrl) {
         String inputData = "Thisisawonderfultest";
         Map<String, String> pathParameterValues = new HashMap<String, String>();
         pathParameterValues.put("value_to_hash", inputData);
@@ -28,6 +28,7 @@ public class Md5BasicChallengeTest implements ChallengeTest {
         boolean result = false;
         String reason = "";
         try {
+            String url = baseUrl + "/md5";
             ResponseEntity<String> response = template.getForEntity(url, String.class, pathParameterValues);
             if (!response.getStatusCode().is2xxSuccessful()) {
                 return new ChallengeTestResult(false, "Status code is not 2xx");

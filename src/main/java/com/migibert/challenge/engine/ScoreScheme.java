@@ -5,7 +5,8 @@ public class ScoreScheme {
     private int partialSuccessScore;
     private int failureScore;
 
-    public ScoreScheme() {}
+    public ScoreScheme() {
+    }
 
     public ScoreScheme(int successScore, int partialSuccessScore, int failureScore) {
         this.successScore = successScore;

@@ -39,7 +39,7 @@ public class ChallengerServiceTest {
         assertEquals(1, values.size());
         assertEquals(ChallengerRegisteredEvent.class, values.get(0).getClass());
 
-        ChallengerRegisteredEvent event = (ChallengerRegisteredEvent)values.get(0);
+        ChallengerRegisteredEvent event = (ChallengerRegisteredEvent) values.get(0);
         assertEquals(challenger, event.getChallenger());
     }
 
@@ -57,7 +57,7 @@ public class ChallengerServiceTest {
         assertEquals(1, values.size());
         assertEquals(ChallengerRegisteredEvent.class, values.get(0).getClass());
 
-        ChallengerRegisteredEvent event = (ChallengerRegisteredEvent)values.get(0);
+        ChallengerRegisteredEvent event = (ChallengerRegisteredEvent) values.get(0);
         assertEquals(challenger, event.getChallenger());
     }
 
@@ -77,7 +77,7 @@ public class ChallengerServiceTest {
         assertEquals(1, values.size());
         assertEquals(ChallengerRegisteredEvent.class, values.get(0).getClass());
 
-        ChallengerRegisteredEvent event = (ChallengerRegisteredEvent)values.get(0);
+        ChallengerRegisteredEvent event = (ChallengerRegisteredEvent) values.get(0);
         assertEquals(challenger1, event.getChallenger());
     }
 
@@ -96,7 +96,7 @@ public class ChallengerServiceTest {
         assertEquals(1, values.size());
         assertEquals(ChallengerRegisteredEvent.class, values.get(0).getClass());
 
-        ChallengerRegisteredEvent event = (ChallengerRegisteredEvent)values.get(0);
+        ChallengerRegisteredEvent event = (ChallengerRegisteredEvent) values.get(0);
         assertEquals(challenger1, event.getChallenger());
     }
 
