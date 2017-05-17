@@ -42,7 +42,6 @@ public class EngineTest {
         List<Challenger> challengers = Lists.newArrayList(challenger);
         List<Challenge> challenges = Lists.newArrayList(challenge);
 
-        ChallengeContract contract = mock(ChallengeContract.class);
         ChallengeTestSuite suite = mock(ChallengeTestSuite.class);
         ChallengeTest test = mock(ChallengeTest.class);
         ChallengeTestResult result = new ChallengeTestResult(true, "This is a test");
@@ -52,7 +51,6 @@ public class EngineTest {
         given(test.evaluate(anyString())).willReturn(result);
         given(suite.getTests()).willReturn(Lists.newArrayList(test));
         given(challenge.getTestSuite()).willReturn(suite);
-        given(challenge.getContract()).willReturn(contract);
 
         engine.game(gameId, challenges, challengers);
 
