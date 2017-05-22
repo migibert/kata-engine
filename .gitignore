@@ -1,3 +1,5 @@
+iac/account.json
+iac/*.tfstate*
 .idea/
 *.iml
 target/
